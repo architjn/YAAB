@@ -8,15 +8,20 @@ import android.support.v7.widget.Toolbar;
 
 import com.architjn.audiobook.R;
 import com.architjn.audiobook.adapter.ViewPagerAdapter;
+import com.architjn.audiobook.presenter.MainPresenter;
+import com.architjn.audiobook.ui.IMainView;
 import com.architjn.audiobook.ui.fragment.AllAudioBookFragment;
 import com.architjn.audiobook.ui.fragment.FinishedAudioBookFragment;
 import com.architjn.audiobook.ui.fragment.NewAudioBookFragment;
 import com.architjn.audiobook.ui.fragment.OnGoingAudioBookFragment;
 
-public class MainActivity extends AppCompatActivity {
+import butterknife.BindView;
 
-    private ViewPager viewPager;
-    private TabLayout tabLayout;
+public class MainActivity extends AppCompatActivity implements IMainView{
+
+    @BindView(R.id.viewpager) private ViewPager viewPager;
+    @BindView(R.id.tabs) private TabLayout tabLayout;
+    private MainPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,19 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private void init() {
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(viewPager);
-
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
-    }
-
-    private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(this, getSupportFragmentManager());
-        adapter.addFragment(new AllAudioBookFragment(), R.string.all);
-        adapter.addFragment(new NewAudioBookFragment(), R.string.new_txt);
-        adapter.addFragment(new OnGoingAudioBookFragment(), R.string.ongoing);
-        adapter.addFragment(new FinishedAudioBookFragment(), R.string.finished);
-        viewPager.setAdapter(adapter);
+        presenter = new MainPresenter(this);
+        presenter.setupViewPager(viewPager, getSupportFragmentManager());
+        presenter.setTabLayout(tabLayout);
     }
 }
