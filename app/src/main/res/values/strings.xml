@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">AudioBook</string>
+    <string name="all">All</string>
+    <string name="new_txt">New</string>
+    <string name="ongoing">Ongoing</string>
+    <string name="finished">Finished</string>
+</resources>
