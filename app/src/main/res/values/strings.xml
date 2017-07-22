@@ -4,4 +4,7 @@
     <string name="new_txt">New</string>
     <string name="ongoing">Ongoing</string>
     <string name="finished">Finished</string>
+    <string name="select_audiobook_folder">Select Audiobook Folder</string>
+    <string name="select_current_folder">Select Current Folder</string>
+    <string name="go_back_dots">...</string>
 </resources>
