@@ -1,6 +1,5 @@
 package com.architjn.audiobook.presenter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
@@ -10,7 +9,7 @@ import com.architjn.audiobook.R;
 import com.architjn.audiobook.adapter.ViewPagerAdapter;
 import com.architjn.audiobook.interactor.MainInteractor;
 import com.architjn.audiobook.ui.IMainView;
-import com.architjn.audiobook.ui.fragment.AllAudioBookFragment;
+import com.architjn.audiobook.ui.fragment.AllAudioBookViewFragment;
 import com.architjn.audiobook.ui.fragment.FinishedAudioBookFragment;
 import com.architjn.audiobook.ui.fragment.NewAudioBookFragment;
 import com.architjn.audiobook.ui.fragment.OnGoingAudioBookFragment;
@@ -34,7 +33,7 @@ public class MainPresenter {
     public void setupViewPager(ViewPager viewPager, FragmentManager supportFragmentManager) {
         this.viewPager = viewPager;
         ViewPagerAdapter adapter = new ViewPagerAdapter(context, supportFragmentManager);
-        adapter.addFragment(new AllAudioBookFragment(), R.string.all);
+        adapter.addFragment(new AllAudioBookViewFragment(), R.string.all);
         adapter.addFragment(new NewAudioBookFragment(), R.string.new_txt);
         adapter.addFragment(new OnGoingAudioBookFragment(), R.string.ongoing);
         adapter.addFragment(new FinishedAudioBookFragment(), R.string.finished);

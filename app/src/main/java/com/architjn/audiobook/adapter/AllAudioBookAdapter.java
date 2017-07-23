@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.architjn.audiobook.R;
+import com.architjn.audiobook.bean.AudioBook;
 import com.architjn.audiobook.bean.Folder;
 
 import java.util.ArrayList;
@@ -16,14 +17,16 @@ import java.util.List;
 /**
  * Created by Wiz@rd on 11/23/2016.
  */
-public class FolderChooserAdapter extends RecyclerView.Adapter<FolderChooserAdapter.ViewHolder> {
+public class AllAudioBookAdapter extends RecyclerView.Adapter<AllAudioBookAdapter.ViewHolder> {
 
+    private static final int GO_BACK = 132;
+    private static final int NORMAL_VIEW = 135;
     private Context context;
-    private List<Folder> items;
-    private IAdapterItemClick<Folder> callback;
+    private List<AudioBook> items;
+    private IAdapterItemClick<AudioBook> callback;
 
-    public FolderChooserAdapter(Context context, ArrayList<Folder> items,
-                                IAdapterItemClick<Folder> callback) {
+    public AllAudioBookAdapter(Context context, ArrayList<AudioBook> items,
+                               IAdapterItemClick<AudioBook> callback) {
         this.context = context;
         this.items = items;
         this.callback = callback;
@@ -31,24 +34,12 @@ public class FolderChooserAdapter extends RecyclerView.Adapter<FolderChooserAdap
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_folder_choose, parent, false);
-        return new ViewHolder(v);
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_audiobook, parent, false);
+            return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        if (position == 0) {
-            holder.name.setText(R.string.go_back_dots);
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (callback != null)
-                        callback.onGoBack();
-                }
-            });
-            return;
-        }
-        holder.name.setText(items.get(position - 1).getName());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,11 +52,10 @@ public class FolderChooserAdapter extends RecyclerView.Adapter<FolderChooserAdap
 
     @Override
     public int getItemCount() {
-        return items.size() + 1;
+        return items.size();
     }
 
-
-    public void updateList(ArrayList<Folder> items) {
+    public void updateList(ArrayList<AudioBook> items) {
         this.items = items;
         notifyDataSetChanged();
     }
@@ -79,12 +69,5 @@ public class FolderChooserAdapter extends RecyclerView.Adapter<FolderChooserAdap
             name = (TextView) itemView.findViewById(R.id.name);
         }
     }
-
-    public interface IAdapterItemClick<T> {
-        void onItemSelected(int position, T item);
-
-        void onGoBack();
-    }
-
 }
 

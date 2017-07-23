@@ -8,14 +8,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 import com.architjn.audiobook.R;
-import com.architjn.audiobook.adapter.ViewPagerAdapter;
-import com.architjn.audiobook.bean.Folder;
 import com.architjn.audiobook.presenter.MainPresenter;
 import com.architjn.audiobook.ui.IMainView;
-import com.architjn.audiobook.ui.fragment.AllAudioBookFragment;
-import com.architjn.audiobook.ui.fragment.FinishedAudioBookFragment;
-import com.architjn.audiobook.ui.fragment.NewAudioBookFragment;
-import com.architjn.audiobook.ui.fragment.OnGoingAudioBookFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

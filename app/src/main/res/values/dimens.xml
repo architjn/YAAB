@@ -5,4 +5,8 @@
     <dimen name="size_10dp">10dp</dimen>
     <dimen name="size_14sp">14sp</dimen>
     <dimen name="size_24dp">24dp</dimen>
+    <dimen name="size_5dp">5dp</dimen>
+    <dimen name="size_68dp">68dp</dimen>
+    <dimen name="size_64dp">64dp</dimen>
+    <dimen name="size_82dp">82dp</dimen>
 </resources>
