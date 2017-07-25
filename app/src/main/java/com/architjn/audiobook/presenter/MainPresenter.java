@@ -31,6 +31,10 @@ public class MainPresenter implements IMainPresenter {
     private MainInteractor interactor;
     private IMainView view;
     private ViewPager viewPager;
+    private AllAudioBookViewFragment allFrag;
+    private NewAudioBookFragment newFrag;
+    private OnGoingAudioBookFragment ongoingFrag;
+    private FinishedAudioBookFragment finishedFrag;
 
     public MainPresenter(Context context) {
         this.view = (IMainView) context;
@@ -61,12 +65,17 @@ public class MainPresenter implements IMainPresenter {
 
     public void setupViewPager(ViewPager viewPager, FragmentManager supportFragmentManager) {
         this.viewPager = viewPager;
+        allFrag = new AllAudioBookViewFragment();
+        newFrag = new NewAudioBookFragment();
+        ongoingFrag = new OnGoingAudioBookFragment();
+        finishedFrag = new FinishedAudioBookFragment();
         ViewPagerAdapter adapter = new ViewPagerAdapter(context, supportFragmentManager);
-        adapter.addFragment(new AllAudioBookViewFragment(), R.string.all);
-        adapter.addFragment(new NewAudioBookFragment(), R.string.new_txt);
-        adapter.addFragment(new OnGoingAudioBookFragment(), R.string.ongoing);
-        adapter.addFragment(new FinishedAudioBookFragment(), R.string.finished);
+        adapter.addFragment(allFrag, R.string.all);
+        adapter.addFragment(newFrag, R.string.new_txt);
+        adapter.addFragment(ongoingFrag, R.string.ongoing);
+        adapter.addFragment(finishedFrag, R.string.finished);
         viewPager.setAdapter(adapter);
+        viewPager.setCurrentItem(interactor.getPageWithSomeData());
     }
 
     public void setTabLayout(TabLayout tabLayout) {
@@ -77,6 +86,12 @@ public class MainPresenter implements IMainPresenter {
     public void startFolderChooser() {
         if (view != null)
             view.startFolderChooser();
+    }
+
+    @Override
+    public void onNewAudioBookLoaded() {
+        allFrag.updateBookList();
+        newFrag.updateBookList();
     }
 
     public MainInteractor getInteractor() {

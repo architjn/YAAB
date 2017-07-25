@@ -46,6 +46,7 @@
             <TextView
                 android:id="@+id/progress_text"
                 android:layout_width="wrap_content"
+                android:layout_marginLeft="@dimen/size_5dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
                 android:text="5%" />

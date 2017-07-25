@@ -23,6 +23,7 @@ import butterknife.ButterKnife;
 public class AllAudioBookViewFragment extends Fragment implements IAudioBookView {
     private View mainView;
     private Context context;
+    private boolean viewDestroyed = true;
     private AllAudioBookPresenter presenter;
     @BindView(R.id.rv)
     RecyclerView rv;
@@ -40,5 +41,17 @@ public class AllAudioBookViewFragment extends Fragment implements IAudioBookView
         ButterKnife.bind(this, mainView);
         presenter = new AllAudioBookPresenter(context, this);
         presenter.setRecycler(rv);
+        viewDestroyed = false;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        viewDestroyed = true;
+    }
+
+    public void updateBookList() {
+        if (!viewDestroyed)
+            presenter.updateBookList();
     }
 }

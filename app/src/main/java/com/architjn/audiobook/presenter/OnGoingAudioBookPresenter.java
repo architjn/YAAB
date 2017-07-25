@@ -8,7 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import com.architjn.audiobook.adapter.AudioBookAdapter;
 import com.architjn.audiobook.adapter.IAdapterItemClick;
 import com.architjn.audiobook.bean.AudioBook;
-import com.architjn.audiobook.interactor.AllAudioBookInteractor;
+import com.architjn.audiobook.interactor.NewAudioBookInteractor;
+import com.architjn.audiobook.interactor.OnGoingAudioBookInteractor;
 import com.architjn.audiobook.presenter.interfaces.IAllAudioBookPresenter;
 import com.architjn.audiobook.ui.IAudioBookView;
 import com.architjn.audiobook.utils.PrefUtils;
@@ -19,18 +20,18 @@ import java.util.ArrayList;
  * Created by HP on 23-07-2017.
  */
 
-public class AllAudioBookPresenter implements IAdapterItemClick<AudioBook>, IAllAudioBookPresenter {
+public class OnGoingAudioBookPresenter implements IAdapterItemClick<AudioBook>, IAllAudioBookPresenter {
     private final PrefUtils pref;
-    private final AllAudioBookInteractor interactor;
+    private final OnGoingAudioBookInteractor interactor;
     private IAudioBookView view;
     private Context context;
     private AudioBookAdapter adapter;
 
-    public AllAudioBookPresenter(Context context, IAudioBookView view) {
+    public OnGoingAudioBookPresenter(Context context, IAudioBookView view) {
         this.view = view;
         this.context = context;
         this.pref = PrefUtils.getInstance(context);
-        this.interactor = new AllAudioBookInteractor(context, this);
+        this.interactor = new OnGoingAudioBookInteractor(context, this);
     }
 
     public void setRecycler(RecyclerView rv) {
@@ -42,12 +43,11 @@ public class AllAudioBookPresenter implements IAdapterItemClick<AudioBook>, IAll
         ArrayList<AudioBook> items = new ArrayList<>();
         adapter = new AudioBookAdapter(context, items, this);
         rv.setAdapter(adapter);
-        interactor.loadAllAudioBooks();
+        interactor.loadOnGoingwAudioBooks();
     }
 
     @Override
     public void onItemSelected(int position, AudioBook item) {
-
     }
 
     @Override
@@ -57,6 +57,6 @@ public class AllAudioBookPresenter implements IAdapterItemClick<AudioBook>, IAll
     }
 
     public void updateBookList() {
-        interactor.loadAllAudioBooks();
+        interactor.loadOnGoingwAudioBooks();
     }
 }

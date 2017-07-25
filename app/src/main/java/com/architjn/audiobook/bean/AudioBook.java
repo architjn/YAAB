@@ -12,16 +12,18 @@ public class AudioBook {
     private final String albumName;
     private final String artistName;
     private final String albumArt;
+    private int status;
     private final long duration;
     private ArrayList<BookChapter> chapters;
 
     public AudioBook(String albumId, String albumKey, String albumName, String artistName,
-                     String albumArt, long duration) {
+                     String albumArt, int status, long duration) {
         this.albumId = albumId;
         this.albumKey = albumKey;
         this.albumName = albumName;
         this.artistName = artistName;
         this.albumArt = albumArt;
+        this.status = status;
         this.duration = duration;
     }
 
@@ -55,5 +57,13 @@ public class AudioBook {
 
     public String getAlbumArt() {
         return albumArt;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

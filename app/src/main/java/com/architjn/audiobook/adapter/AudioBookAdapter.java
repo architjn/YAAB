@@ -1,7 +1,7 @@
 package com.architjn.audiobook.adapter;
 
 import android.content.Context;
-import android.net.Uri;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.architjn.audiobook.R;
 import com.architjn.audiobook.bean.AudioBook;
-import com.architjn.audiobook.bean.Folder;
 import com.architjn.audiobook.utils.Utils;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.squareup.picasso.Picasso;
@@ -18,21 +17,21 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
+import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Wiz@rd on 11/23/2016.
  */
-public class AllAudioBookAdapter extends RecyclerView.Adapter<AllAudioBookAdapter.ViewHolder> {
+public class AudioBookAdapter extends RecyclerView.Adapter<AudioBookAdapter.ViewHolder> {
 
     private Context context;
     private List<AudioBook> items;
     private IAdapterItemClick<AudioBook> callback;
 
-    public AllAudioBookAdapter(Context context, ArrayList<AudioBook> items,
-                               IAdapterItemClick<AudioBook> callback) {
+    public AudioBookAdapter(Context context, ArrayList<AudioBook> items,
+                            IAdapterItemClick<AudioBook> callback) {
         this.context = context;
         this.items = items;
         this.callback = callback;
@@ -51,6 +50,11 @@ public class AllAudioBookAdapter extends RecyclerView.Adapter<AllAudioBookAdapte
         holder.author.setText(book.getArtistName());
         int h = (int) ((book.getDuration() / 1000) / 3600);
         int m = (int) (((book.getDuration() / 1000) / 60) % 60);
+        int percent = new Random().nextInt(100);
+        int progressColor = Color.rgb(200 - (percent * 2), percent * 2, 0);
+        holder.progressTxt.setTextColor(progressColor);
+        holder.progressTxt.setText(percent + "%");
+        holder.progress.setFinishedStrokeColor(progressColor);
         holder.duration.setText(String.format(Locale.ENGLISH, "%02dhr%02dmin", h, m));
         if (book.getAlbumArt() != null) {
             Picasso.with(context).load(Utils.getUriOfMedia(book.getAlbumId()))
@@ -58,14 +62,13 @@ public class AllAudioBookAdapter extends RecyclerView.Adapter<AllAudioBookAdapte
                     .resizeDimen(R.dimen.size_64dp, R.dimen.size_64dp)
                     .centerCrop()
                     .into(holder.photo);
-            Utils.log(book.getAlbumArt());
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (callback != null)
-                    callback.onItemSelected(holder.getAdapterPosition() - 1,
-                            items.get(holder.getAdapterPosition() - 1));
+                    callback.onItemSelected(holder.getAdapterPosition(),
+                            items.get(holder.getAdapterPosition()));
             }
         });
     }

@@ -43,13 +43,34 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-    public void addAudioBook(AudioBook audioBook) {
-        AudioBookTable.addBook(this.getWritableDatabase(), audioBook);
-        ChapterTable.addChapters(this.getWritableDatabase(), audioBook.getAlbumId(),
-                audioBook.getChapters());
+    public boolean addAudioBook(AudioBook audioBook) {
+        if (AudioBookTable.addBook(this.getWritableDatabase(), audioBook) != -1) {
+            ChapterTable.addChapters(this.getWritableDatabase(), audioBook.getAlbumId(),
+                    audioBook.getChapters());
+            return true;
+        } else return false;
     }
 
     public ArrayList<AudioBook> loadAllAudioBooks() {
         return AudioBookTable.getAllBooks(this.getReadableDatabase());
+    }
+
+    public ArrayList<AudioBook> loadNewAudioBooks() {
+        return AudioBookTable.getNewBooks(this.getReadableDatabase());
+    }
+
+    public ArrayList<AudioBook> loadOnGoingAudioBooks() {
+        return AudioBookTable.getOnGoingBooks(this.getReadableDatabase());
+    }
+
+    public void updateBookStatus(String albumId, int status) {
+        AudioBookTable.setBookStatus(this.getWritableDatabase(), albumId, status);
+    }
+
+    public int getOnGoingBooksCount() {
+        return AudioBookTable.getOnGoingDataCount(this.getWritableDatabase());
+    }
+    public int getNewBooksCount() {
+        return AudioBookTable.getNewDataCount(this.getWritableDatabase());
     }
 }

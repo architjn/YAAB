@@ -52,7 +52,6 @@ public class FolderChooserViewActivity extends AppCompatActivity implements IFol
 
     @Override
     public void closePage() {
-
         setResult(RESULT_OK);
         super.onBackPressed();
     }

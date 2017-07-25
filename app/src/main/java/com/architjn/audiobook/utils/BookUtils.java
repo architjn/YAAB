@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.widget.ArrayAdapter;
 
 import com.architjn.audiobook.bean.AudioBook;
 import com.architjn.audiobook.bean.BookChapter;
@@ -55,7 +54,7 @@ public class BookUtils {
                         cursor.getString(cursor.getColumnIndex(strArr[1])),
                         cursor.getString(cursor.getColumnIndex(strArr[2])),
                         cursor.getString(cursor.getColumnIndex(strArr[3])),
-                        albumArt,
+                        albumArt, 0,
                         cursor.getLong(cursor.getColumnIndex(strArr[4]))
                 ));
             } while (cursor.moveToNext());

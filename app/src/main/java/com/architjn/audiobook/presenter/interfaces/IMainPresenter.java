@@ -6,4 +6,6 @@ package com.architjn.audiobook.presenter.interfaces;
 
 public interface IMainPresenter {
     void startFolderChooser();
+
+    void onNewAudioBookLoaded();
 }
