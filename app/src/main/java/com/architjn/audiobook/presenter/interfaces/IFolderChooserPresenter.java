@@ -1,4 +1,4 @@
-package com.architjn.audiobook.presenter;
+package com.architjn.audiobook.presenter.interfaces;
 
 import com.architjn.audiobook.bean.Folder;
 

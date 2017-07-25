@@ -11,14 +11,17 @@ public class AudioBook {
     private final String albumKey;
     private final String albumName;
     private final String artistName;
+    private final String albumArt;
     private final long duration;
     private ArrayList<BookChapter> chapters;
 
-    public AudioBook(String albumId, String albumKey, String albumName, String artistName, long duration) {
+    public AudioBook(String albumId, String albumKey, String albumName, String artistName,
+                     String albumArt, long duration) {
         this.albumId = albumId;
         this.albumKey = albumKey;
         this.albumName = albumName;
         this.artistName = artistName;
+        this.albumArt = albumArt;
         this.duration = duration;
     }
 
@@ -48,5 +51,9 @@ public class AudioBook {
 
     public ArrayList<BookChapter> getChapters() {
         return chapters;
+    }
+
+    public String getAlbumArt() {
+        return albumArt;
     }
 }

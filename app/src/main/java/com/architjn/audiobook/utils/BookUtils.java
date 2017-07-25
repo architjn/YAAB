@@ -33,11 +33,29 @@ public class BookUtils {
                         + MediaStore.Audio.Media.ALBUM_KEY, new String[]{path + "%"}, MediaStore.Audio.Media.ALBUM);
         if (cursor != null && cursor.moveToFirst()) {
             do {
+                String albumId = cursor.getString(cursor.getColumnIndex(strArr[0]));
+                Cursor cursor1 = context.getContentResolver().query(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI,
+                        new String[]{MediaStore.Audio.Albums._ID, MediaStore.Audio.Albums.ALBUM_ART},
+                        MediaStore.Audio.Albums._ID + "=?",
+                        new String[]{String.valueOf(albumId)},
+                        null);
+
+                String albumArt = null;
+                if (cursor1 != null && cursor1.moveToFirst()) {
+                    try {
+                        albumArt = cursor1.getString(cursor1.getColumnIndex(MediaStore.Audio.Albums.ALBUM_ART));
+                    } catch (IllegalStateException e) {
+                        e.printStackTrace();
+                    } finally {
+                        cursor1.close();
+                    }
+                }
                 books.add(new AudioBook(
-                        cursor.getString(cursor.getColumnIndex(strArr[0])),
+                        albumId,
                         cursor.getString(cursor.getColumnIndex(strArr[1])),
                         cursor.getString(cursor.getColumnIndex(strArr[2])),
                         cursor.getString(cursor.getColumnIndex(strArr[3])),
+                        albumArt,
                         cursor.getLong(cursor.getColumnIndex(strArr[4]))
                 ));
             } while (cursor.moveToNext());

@@ -5,14 +5,12 @@ import android.content.Context;
 
 import com.architjn.audiobook.R;
 import com.architjn.audiobook.bean.AudioBook;
-import com.architjn.audiobook.bean.BookChapter;
-import com.architjn.audiobook.presenter.IMainPresenter;
-import com.architjn.audiobook.presenter.MainPresenter;
+import com.architjn.audiobook.database.DBHelper;
+import com.architjn.audiobook.presenter.interfaces.IMainPresenter;
 import com.architjn.audiobook.ui.activity.MainActivity;
 import com.architjn.audiobook.utils.BookUtils;
 import com.architjn.audiobook.utils.PermissionChecker;
 import com.architjn.audiobook.utils.PrefUtils;
-import com.architjn.audiobook.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -42,11 +40,9 @@ public class MainInteractor {
             } else {
                 ArrayList<AudioBook> books = BookUtils.scanForBooks(context, pref.getAudioBookFolderPath());
                 for (int i = 0; i < books.size(); i++) {
-                    Utils.log(books.get(i).getAlbumName());
                     books.set(i, BookUtils.loadAlbumDetails(context, books.get(i)));
-                    for (BookChapter chapter : books.get(i).getChapters()) {
-                        Utils.log("====>" + chapter.getTitle());
-                    }
+//                    DBHelper.getInstance(context)
+//                            .addAudioBook(books.get(i));
                 }
             }
         }

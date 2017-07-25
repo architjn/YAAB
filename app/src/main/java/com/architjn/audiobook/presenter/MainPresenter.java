@@ -3,7 +3,6 @@ package com.architjn.audiobook.presenter;
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
@@ -11,22 +10,16 @@ import android.support.v7.app.AlertDialog;
 
 import com.architjn.audiobook.R;
 import com.architjn.audiobook.adapter.ViewPagerAdapter;
-import com.architjn.audiobook.bean.AudioBook;
-import com.architjn.audiobook.bean.BookChapter;
 import com.architjn.audiobook.interactor.MainInteractor;
+import com.architjn.audiobook.presenter.interfaces.IMainPresenter;
 import com.architjn.audiobook.ui.IMainView;
-import com.architjn.audiobook.ui.activity.FolderChooserViewActivity;
 import com.architjn.audiobook.ui.activity.MainActivity;
 import com.architjn.audiobook.ui.fragment.AllAudioBookViewFragment;
 import com.architjn.audiobook.ui.fragment.FinishedAudioBookFragment;
 import com.architjn.audiobook.ui.fragment.NewAudioBookFragment;
 import com.architjn.audiobook.ui.fragment.OnGoingAudioBookFragment;
-import com.architjn.audiobook.utils.BookUtils;
 import com.architjn.audiobook.utils.PermissionChecker;
 import com.architjn.audiobook.utils.PrefUtils;
-import com.architjn.audiobook.utils.Utils;
-
-import java.util.ArrayList;
 
 /**
  * Created by HP on 22-07-2017.
@@ -84,5 +77,9 @@ public class MainPresenter implements IMainPresenter {
     public void startFolderChooser() {
         if (view != null)
             view.startFolderChooser();
+    }
+
+    public MainInteractor getInteractor() {
+        return interactor;
     }
 }

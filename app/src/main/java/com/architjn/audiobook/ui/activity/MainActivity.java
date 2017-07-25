@@ -51,13 +51,13 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == FOLDER_CHOOSER && resultCode == RESULT_OK)
-            presenter.scanForNewAudioBooks();
+            presenter.getInteractor().scanForNewAudioBooks();
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == READ_PERMISSION_REQUEST && grantResults[0] == PermissionChecker.PERMISSION_GRANTED)
-            presenter.scanForNewAudioBooks();
+            presenter.getInteractor().scanForNewAudioBooks();
     }
 }
