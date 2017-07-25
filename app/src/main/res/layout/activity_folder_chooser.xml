@@ -51,6 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/size_24dp"
+        android:id="@+id/select"
         app:fabSize="normal"
         app:srcCompat="@drawable/ic_done_white_24dp" />
 </android.support.design.widget.CoordinatorLayout>

@@ -9,6 +9,9 @@ import com.architjn.audiobook.adapter.AllAudioBookAdapter;
 import com.architjn.audiobook.adapter.IAdapterItemClick;
 import com.architjn.audiobook.bean.AudioBook;
 import com.architjn.audiobook.ui.IAudioBookView;
+import com.architjn.audiobook.utils.BookUtils;
+import com.architjn.audiobook.utils.PrefUtils;
+import com.architjn.audiobook.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -17,6 +20,7 @@ import java.util.ArrayList;
  */
 
 public class AllAudioBookPresenter implements IAdapterItemClick<AudioBook> {
+    private final PrefUtils pref;
     private IAudioBookView view;
     private Context context;
     private AllAudioBookAdapter adapter;
@@ -24,6 +28,7 @@ public class AllAudioBookPresenter implements IAdapterItemClick<AudioBook> {
     public AllAudioBookPresenter(Context context, IAudioBookView view) {
         this.view = view;
         this.context = context;
+        pref = PrefUtils.getInstance(context);
     }
 
     public void setRecycler(RecyclerView rv) {
@@ -33,10 +38,6 @@ public class AllAudioBookPresenter implements IAdapterItemClick<AudioBook> {
                 lm.getOrientation());
         rv.addItemDecoration(dividerItemDecoration);
         ArrayList<AudioBook> items = new ArrayList<>();
-        items.add(new AudioBook());
-        items.add(new AudioBook());
-        items.add(new AudioBook());
-        items.add(new AudioBook());
         adapter = new AllAudioBookAdapter(context, items, this);
         rv.setAdapter(adapter);
     }

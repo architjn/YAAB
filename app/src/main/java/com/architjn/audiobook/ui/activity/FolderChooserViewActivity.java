@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.TextView;
 
 import com.architjn.audiobook.R;
@@ -24,6 +25,8 @@ public class FolderChooserViewActivity extends AppCompatActivity implements IFol
     RecyclerView listView;
     @BindView(R.id.curr_dir)
     TextView currDir;
+    @BindView(R.id.select)
+    View selectBtn;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,6 +42,7 @@ public class FolderChooserViewActivity extends AppCompatActivity implements IFol
         getSupportActionBar().setTitle(R.string.select_audiobook_folder);
         presenter = new FolderChooserPresenter(this);
         presenter.initializeList(listView);
+        selectBtn.setOnClickListener(presenter.onSelectButton);
     }
 
     @Override
@@ -48,6 +52,8 @@ public class FolderChooserViewActivity extends AppCompatActivity implements IFol
 
     @Override
     public void closePage() {
+
+        setResult(RESULT_OK);
         super.onBackPressed();
     }
 }

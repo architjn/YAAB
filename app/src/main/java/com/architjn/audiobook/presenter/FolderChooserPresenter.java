@@ -4,12 +4,14 @@ import android.content.Context;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.architjn.audiobook.adapter.FolderChooserAdapter;
 import com.architjn.audiobook.adapter.IAdapterItemClick;
 import com.architjn.audiobook.bean.Folder;
 import com.architjn.audiobook.interactor.FolderChooserInteractor;
 import com.architjn.audiobook.ui.IFolderChooserView;
+import com.architjn.audiobook.utils.PrefUtils;
 import com.architjn.audiobook.utils.Utils;
 
 import java.util.ArrayList;
@@ -25,6 +27,16 @@ public class FolderChooserPresenter implements IFolderChooserPresenter, FolderCh
     private Context context;
     private FolderChooserAdapter adapter;
     private Stack<String> paths;
+
+    public View.OnClickListener onSelectButton = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            PrefUtils.getInstance(context).setAudioBookFolderPath(currFolder);
+            if (FolderChooserPresenter.this.view!=null)
+                FolderChooserPresenter.this.view.closePage();
+        }
+    };
+    private String currFolder;
 
     public FolderChooserPresenter(Context context) {
         this.view = (IFolderChooserView) context;
@@ -46,6 +58,7 @@ public class FolderChooserPresenter implements IFolderChooserPresenter, FolderCh
 
     @Override
     public void foldersLoaded(String currFolder, ArrayList<Folder> folders) {
+        this.currFolder = currFolder;
         adapter.updateList(folders);
         if (view != null)
             view.onPathChange(currFolder);

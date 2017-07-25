@@ -5,4 +5,5 @@ package com.architjn.audiobook.ui;
  */
 
 public interface IMainView {
+    void startFolderChooser();
 }

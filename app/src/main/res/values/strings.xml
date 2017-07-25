@@ -7,4 +7,9 @@
     <string name="select_audiobook_folder">Select Audiobook Folder</string>
     <string name="select_current_folder">Select Current Folder</string>
     <string name="go_back_dots">...</string>
+    <string name="read_permission_request">Read Storage permission is necessary to read audiobooks from the specified directory</string>
+    <string name="permission_required">Permission Required</string>
+    <string name="select_directory">Select Directory</string>
+    <string name="select_directory_dialog_msg">Select a directory where All AudioBooks are stored. You can change directory from app settings.</string>
+    <string name="ok">Ok</string>
 </resources>
