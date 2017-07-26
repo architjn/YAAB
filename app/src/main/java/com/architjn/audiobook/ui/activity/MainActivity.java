@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 
     private void init() {
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.library);
         ButterKnife.bind(this);
         presenter = new MainPresenter(this);
         presenter.setupViewPager(viewPager, getSupportFragmentManager());
