@@ -8,6 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/background</item>
     </style>
+
+    <style name="AppTheme.Player" parent="AppTheme" />
 
 </resources>

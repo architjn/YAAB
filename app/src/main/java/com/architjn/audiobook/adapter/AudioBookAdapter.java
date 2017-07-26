@@ -54,8 +54,9 @@ public class AudioBookAdapter extends RecyclerView.Adapter<AudioBookAdapter.View
         int progressColor = Color.rgb(200 - (percent * 2), percent * 2, 0);
         holder.progressTxt.setTextColor(progressColor);
         holder.progressTxt.setText(percent + "%");
+        holder.progress.setDonut_progress(String.valueOf(percent));
         holder.progress.setFinishedStrokeColor(progressColor);
-        holder.duration.setText(String.format(Locale.ENGLISH, "%02dhr%02dmin", h, m));
+        holder.duration.setText(String.format(Locale.ENGLISH, "%02dhr%02dm", h, m));
         if (book.getAlbumArt() != null) {
             Picasso.with(context).load(Utils.getUriOfMedia(book.getAlbumId()))
                     .placeholder(R.drawable.ic_default_artist)

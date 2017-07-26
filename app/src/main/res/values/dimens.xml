@@ -9,4 +9,9 @@
     <dimen name="size_68dp">68dp</dimen>
     <dimen name="size_64dp">64dp</dimen>
     <dimen name="size_82dp">82dp</dimen>
+    <dimen name="size_20dp">20dp</dimen>
+    <dimen name="size_24sp">24sp</dimen>
+    <dimen name="size_42dp">42dp</dimen>
+    <dimen name="size_18sp">18sp</dimen>
+    <dimen name="size_36dp">36dp</dimen>
 </resources>

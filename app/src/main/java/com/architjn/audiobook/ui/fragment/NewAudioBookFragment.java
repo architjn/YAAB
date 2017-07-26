@@ -1,6 +1,7 @@
 package com.architjn.audiobook.ui.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,9 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.architjn.audiobook.R;
+import com.architjn.audiobook.bean.AudioBook;
 import com.architjn.audiobook.presenter.AllAudioBookPresenter;
 import com.architjn.audiobook.presenter.NewAudioBookPresenter;
 import com.architjn.audiobook.ui.IAudioBookView;
+import com.architjn.audiobook.ui.activity.PlayerActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,7 +24,7 @@ import butterknife.ButterKnife;
  * Created by HP on 18-07-2017.
  */
 
-public class NewAudioBookFragment extends Fragment implements IAudioBookView{
+public class NewAudioBookFragment extends Fragment implements IAudioBookView {
     private View mainView;
     private Context context;
     private boolean viewDestroyed = true;
@@ -54,5 +57,12 @@ public class NewAudioBookFragment extends Fragment implements IAudioBookView{
     public void updateBookList() {
         if (!viewDestroyed)
             presenter.updateBookList();
+    }
+
+    @Override
+    public void startPlayerScreen(AudioBook item) {
+        Intent i = new Intent(context, PlayerActivity.class);
+        i.putExtra("audiobook", item);
+        startActivity(i);
     }
 }

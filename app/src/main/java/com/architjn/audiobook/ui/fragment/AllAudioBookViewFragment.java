@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.architjn.audiobook.R;
+import com.architjn.audiobook.bean.AudioBook;
 import com.architjn.audiobook.presenter.AllAudioBookPresenter;
 import com.architjn.audiobook.ui.IAudioBookView;
 
@@ -53,5 +54,10 @@ public class AllAudioBookViewFragment extends Fragment implements IAudioBookView
     public void updateBookList() {
         if (!viewDestroyed)
             presenter.updateBookList();
+    }
+
+    @Override
+    public void startPlayerScreen(AudioBook item) {
+
     }
 }

@@ -1,20 +1,25 @@
 package com.architjn.audiobook.bean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by HP on 23-07-2017.
  */
 
-public class AudioBook {
-    private final String albumId;
-    private final String albumKey;
-    private final String albumName;
-    private final String artistName;
-    private final String albumArt;
+public class AudioBook implements Serializable {
+    private String albumId;
+    private String albumKey;
+    private String albumName;
+    private String artistName;
+    private String albumArt;
     private int status;
-    private final long duration;
+    private long duration;
     private ArrayList<BookChapter> chapters;
+
+    public AudioBook() {
+        //for serializable
+    }
 
     public AudioBook(String albumId, String albumKey, String albumName, String artistName,
                      String albumArt, int status, long duration) {
@@ -65,5 +70,29 @@ public class AudioBook {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public void setAlbumId(String albumId) {
+        this.albumId = albumId;
+    }
+
+    public void setAlbumKey(String albumKey) {
+        this.albumKey = albumKey;
+    }
+
+    public void setAlbumName(String albumName) {
+        this.albumName = albumName;
+    }
+
+    public void setArtistName(String artistName) {
+        this.artistName = artistName;
+    }
+
+    public void setAlbumArt(String albumArt) {
+        this.albumArt = albumArt;
+    }
+
+    public void setDuration(long duration) {
+        this.duration = duration;
     }
 }

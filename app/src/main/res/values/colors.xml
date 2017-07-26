@@ -7,4 +7,6 @@
     <color name="primaryTextColor">#212121</color>
     <color name="secondaryTextColor">#757575</color>
     <color name="dividerColor">#BDBDBD</color>
+    <color name="default_text_color">#808080</color>
+    <color name="background">#eeeeee</color>
 </resources>

@@ -47,7 +47,7 @@ public class NewAudioBookPresenter implements IAdapterItemClick<AudioBook>, IAll
 
     @Override
     public void onItemSelected(int position, AudioBook item) {
-        interactor.markAudioBookOnGoing(item);
+        view.startPlayerScreen(item);
     }
 
     @Override
