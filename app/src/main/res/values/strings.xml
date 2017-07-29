@@ -13,4 +13,6 @@
     <string name="select_directory_dialog_msg">Select a directory where All AudioBooks are stored. You can change directory from app settings.</string>
     <string name="ok">Ok</string>
     <string name="library">Library</string>
+    <string name="no_audiobook">No AudioBook</string>
+    <string name="no_audiobook_msg">The Selected AudioBook was not found. Please Try refreshing from Home Screen.</string>
 </resources>

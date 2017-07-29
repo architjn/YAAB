@@ -144,4 +144,24 @@ public class AudioBookTable {
         return 0;
     }
 
+    public static AudioBook getAudioBook(SQLiteDatabase db, String albumId) {
+        String query = "SELECT  * FROM " + TABLE_NAME + " WHERE " + ALBUM_ID + "=?";
+        Cursor cursor = db.rawQuery(query, new String[]{albumId});
+        AudioBook audiobook = null;
+        if (cursor != null && cursor.moveToFirst()) {
+            audiobook = new AudioBook(
+                    cursor.getString(cursor.getColumnIndex(ALBUM_ID)),
+                    cursor.getString(cursor.getColumnIndex(ALBUM_KEY)),
+                    cursor.getString(cursor.getColumnIndex(ALBUM_NAME)),
+                    cursor.getString(cursor.getColumnIndex(ARTIST_NAME)),
+                    cursor.getString(cursor.getColumnIndex(ALBUM_ART)),
+                    cursor.getInt(cursor.getColumnIndex(ALBUM_STATUS)),
+                    Long.parseLong(cursor.getString(cursor.getColumnIndex(COMPLETE_DURATION))));
+            ArrayList<BookChapter> chapters =
+                    ChapterTable.getChapters(db, audiobook.getAlbumId());
+            audiobook.setChapters(chapters);
+            cursor.close();
+        }
+        return audiobook;
+    }
 }

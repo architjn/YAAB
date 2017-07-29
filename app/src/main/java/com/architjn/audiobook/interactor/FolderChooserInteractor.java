@@ -3,7 +3,7 @@ package com.architjn.audiobook.interactor;
 import android.os.Environment;
 
 import com.architjn.audiobook.bean.Folder;
-import com.architjn.audiobook.presenter.interfaces.IFolderChooserPresenter;
+import com.architjn.audiobook.interfaces.IFolderChooserPresenter;
 
 import java.io.File;
 import java.util.ArrayList;

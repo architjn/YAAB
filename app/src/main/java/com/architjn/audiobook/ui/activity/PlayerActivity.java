@@ -1,8 +1,11 @@
 package com.architjn.audiobook.ui.activity;
 
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -15,7 +18,7 @@ import android.widget.TextView;
 import com.architjn.audiobook.R;
 import com.architjn.audiobook.bean.AudioBook;
 import com.architjn.audiobook.presenter.PlayerPresenter;
-import com.architjn.audiobook.ui.IPlayerView;
+import com.architjn.audiobook.interfaces.IPlayerView;
 import com.architjn.audiobook.utils.Utils;
 
 import butterknife.BindView;
@@ -41,7 +44,12 @@ public class PlayerActivity extends AppCompatActivity implements IPlayerView {
     TextView timeLeft;
     @BindView(R.id.time_right)
     TextView timeRight;
-    private AudioBook audiobook;
+    @BindView(R.id.play)
+    FloatingActionButton play;
+    @BindView(R.id.prev)
+    FloatingActionButton prev;
+    @BindView(R.id.next)
+    FloatingActionButton next;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,14 +66,12 @@ public class PlayerActivity extends AppCompatActivity implements IPlayerView {
             FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) toolbar.getLayoutParams();
             lp.setMargins(0, Utils.getStatusBarHeight(), 0, 0);
         }
-        audiobook = (AudioBook) getIntent().getSerializableExtra("audiobook");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(null);
         presenter = new PlayerPresenter(this);
-        songName.setText(audiobook.getAlbumName());
-        artist.setText(audiobook.getArtistName());
-        presenter.setImageView(art, audiobook);
+        Utils.log(getIntent().getStringExtra("id")+" <<");
+        presenter.loadAudioBook(getIntent().getStringExtra("id"));
     }
 
     @Override
@@ -87,6 +93,32 @@ public class PlayerActivity extends AppCompatActivity implements IPlayerView {
     @Override
     public void onTitleTextColorUpdate(int animatedValue) {
         artist.setTextColor(animatedValue);
+    }
+
+    @Override
+    public void onErrorLoadAudioBook() {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.no_audiobook)
+                .setMessage(R.string.no_audiobook_msg)
+                .setCancelable(false)
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (!isFinishing())
+                            finish();
+                    }
+                })
+                .create().show();
+    }
+
+    @Override
+    public void onInit() {
+        songName.setText(presenter.getAudioBook().getAlbumName());
+        artist.setText(presenter.getAudioBook().getArtistName());
+        presenter.setImageView(art);
+        play.setOnClickListener(presenter.onPlayBtn);
+        prev.setOnClickListener(presenter.onPrevBtn);
+        next.setOnClickListener(presenter.onNextBtn);
     }
 
     @Override

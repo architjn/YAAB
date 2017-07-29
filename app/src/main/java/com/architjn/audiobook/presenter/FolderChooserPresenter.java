@@ -9,8 +9,8 @@ import android.view.View;
 import com.architjn.audiobook.adapter.FolderChooserAdapter;
 import com.architjn.audiobook.bean.Folder;
 import com.architjn.audiobook.interactor.FolderChooserInteractor;
-import com.architjn.audiobook.presenter.interfaces.IFolderChooserPresenter;
-import com.architjn.audiobook.ui.IFolderChooserView;
+import com.architjn.audiobook.interfaces.IFolderChooserPresenter;
+import com.architjn.audiobook.interfaces.IFolderChooserView;
 import com.architjn.audiobook.utils.PrefUtils;
 import com.architjn.audiobook.utils.Utils;
 

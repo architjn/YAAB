@@ -12,9 +12,8 @@ import android.view.ViewGroup;
 
 import com.architjn.audiobook.R;
 import com.architjn.audiobook.bean.AudioBook;
-import com.architjn.audiobook.presenter.NewAudioBookPresenter;
 import com.architjn.audiobook.presenter.OnGoingAudioBookPresenter;
-import com.architjn.audiobook.ui.IAudioBookView;
+import com.architjn.audiobook.interfaces.IAudioBookView;
 import com.architjn.audiobook.ui.activity.PlayerActivity;
 
 import butterknife.BindView;
@@ -59,10 +58,4 @@ public class OnGoingAudioBookFragment extends Fragment implements IAudioBookView
             presenter.updateBookList();
     }
 
-    @Override
-    public void startPlayerScreen(AudioBook item) {
-        Intent i = new Intent(context, PlayerActivity.class);
-        i.putExtra("audiobook", item);
-        startActivity(i);
-    }
 }

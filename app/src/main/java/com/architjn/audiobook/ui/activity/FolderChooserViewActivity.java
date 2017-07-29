@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.architjn.audiobook.R;
 import com.architjn.audiobook.presenter.FolderChooserPresenter;
-import com.architjn.audiobook.ui.IFolderChooserView;
+import com.architjn.audiobook.interfaces.IFolderChooserView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

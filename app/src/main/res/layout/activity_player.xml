@@ -149,6 +149,7 @@
                 android:padding="@dimen/size_10dp">
 
                 <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/prev"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/size_10dp"
@@ -157,6 +158,7 @@
                     app:srcCompat="@drawable/ic_skip_prev_grey_24dp" />
 
                 <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/play"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/size_10dp"
@@ -165,6 +167,7 @@
                     app:srcCompat="@drawable/ic_play_accent_24dp" />
 
                 <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/next"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/size_10dp"

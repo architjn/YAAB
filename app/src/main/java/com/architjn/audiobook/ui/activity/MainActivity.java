@@ -11,7 +11,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.architjn.audiobook.R;
 import com.architjn.audiobook.presenter.MainPresenter;
-import com.architjn.audiobook.ui.IMainView;
+import com.architjn.audiobook.interfaces.IMainView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

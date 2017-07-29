@@ -7,7 +7,7 @@ import android.os.Handler;
 import com.architjn.audiobook.R;
 import com.architjn.audiobook.bean.AudioBook;
 import com.architjn.audiobook.database.DBHelper;
-import com.architjn.audiobook.presenter.interfaces.IMainPresenter;
+import com.architjn.audiobook.interfaces.IMainPresenter;
 import com.architjn.audiobook.ui.activity.MainActivity;
 import com.architjn.audiobook.utils.BookUtils;
 import com.architjn.audiobook.utils.PermissionChecker;

@@ -1,4 +1,4 @@
-package com.architjn.audiobook.presenter.interfaces;
+package com.architjn.audiobook.interfaces;
 
 /**
  * Created by Archit on 25-07-2017.

@@ -1,6 +1,7 @@
 package com.architjn.audiobook.presenter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,9 +10,11 @@ import com.architjn.audiobook.adapter.AudioBookAdapter;
 import com.architjn.audiobook.adapter.IAdapterItemClick;
 import com.architjn.audiobook.bean.AudioBook;
 import com.architjn.audiobook.interactor.AllAudioBookInteractor;
-import com.architjn.audiobook.presenter.interfaces.IAllAudioBookPresenter;
-import com.architjn.audiobook.ui.IAudioBookView;
+import com.architjn.audiobook.interfaces.IAllAudioBookPresenter;
+import com.architjn.audiobook.interfaces.IAudioBookView;
+import com.architjn.audiobook.ui.activity.PlayerActivity;
 import com.architjn.audiobook.utils.PrefUtils;
+import com.architjn.audiobook.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -47,7 +50,9 @@ public class AllAudioBookPresenter implements IAdapterItemClick<AudioBook>, IAll
 
     @Override
     public void onItemSelected(int position, AudioBook item) {
-
+        Intent intent = new Intent(context, PlayerActivity.class);
+        intent.putExtra("id", item.getAlbumId());
+        context.startActivity(intent);
     }
 
     @Override

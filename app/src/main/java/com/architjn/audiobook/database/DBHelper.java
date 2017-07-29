@@ -73,4 +73,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public int getNewBooksCount() {
         return AudioBookTable.getNewDataCount(this.getWritableDatabase());
     }
+
+    public AudioBook getAudioBookViaId(String albumId) {
+        return AudioBookTable.getAudioBook(this.getReadableDatabase(), albumId);
+    }
 }

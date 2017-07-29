@@ -3,19 +3,18 @@ package com.architjn.audiobook.presenter;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Handler;
 import android.support.v7.graphics.Palette;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.architjn.audiobook.R;
 import com.architjn.audiobook.bean.AudioBook;
-import com.architjn.audiobook.ui.IPlayerView;
-import com.architjn.audiobook.ui.activity.PlayerActivity;
+import com.architjn.audiobook.interactor.PlayerInteractor;
+import com.architjn.audiobook.interfaces.IPlayerPresenter;
+import com.architjn.audiobook.interfaces.IPlayerView;
 import com.architjn.audiobook.utils.Utils;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -24,14 +23,37 @@ import com.squareup.picasso.Target;
  * Created by Archit on 26-07-2017.
  */
 
-public class PlayerPresenter {
+public class PlayerPresenter implements IPlayerPresenter {
+    private final PlayerInteractor interactor;
     private IPlayerView view;
     private Context context;
     private ImageView art;
 
+    public View.OnClickListener onPlayBtn = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+        }
+    };
+    public View.OnClickListener onPrevBtn = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+        }
+    };
+    public View.OnClickListener onNextBtn = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+        }
+    };
+    private AudioBook audioBook;
+
     public PlayerPresenter(Context context) {
         this.context = context;
         this.view = (IPlayerView) context;
+        this.interactor = PlayerInteractor.getInstance(context);
+        this.interactor.setPresenterListener(this);
     }
 
     Target target = new Target() {
@@ -52,11 +74,11 @@ public class PlayerPresenter {
         }
     };
 
-    public void setImageView(ImageView art, AudioBook audiobook) {
+    public void setImageView(ImageView art) {
         this.art = art;
         int width = Utils.getScreenWidth();
         int height = width;
-        Uri img = Utils.getUriOfMedia(audiobook.getAlbumId());
+        Uri img = Utils.getUriOfMedia(audioBook.getAlbumId());
         art.getLayoutParams().height = height;
         Picasso.with(context)
                 .load(img)
@@ -135,5 +157,18 @@ public class PlayerPresenter {
 
         });
         colorAnimation.start();
+    }
+
+    public void loadAudioBook(String albumId) {
+        this.audioBook = interactor.loadBook(albumId);
+        if (audioBook == null) {
+            if (view != null)
+                view.onErrorLoadAudioBook();
+        }else if (view!=null)
+            view.onInit();
+    }
+
+    public AudioBook getAudioBook() {
+        return audioBook;
     }
 }
