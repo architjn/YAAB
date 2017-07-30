@@ -9,5 +9,5 @@ import com.architjn.audiobook.bean.AudioBook;
 public interface IPlayerService {
     void setSource(AudioBook audiobook);
 
-    void play();
+    int play();
 }

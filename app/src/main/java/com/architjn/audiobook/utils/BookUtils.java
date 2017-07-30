@@ -55,8 +55,7 @@ public class BookUtils {
                         cursor.getString(cursor.getColumnIndex(strArr[2])),
                         cursor.getString(cursor.getColumnIndex(strArr[3])),
                         albumArt, 0,
-                        cursor.getLong(cursor.getColumnIndex(strArr[4]))
-                ));
+                        cursor.getLong(cursor.getColumnIndex(strArr[4])), 0));
             } while (cursor.moveToNext());
             cursor.close();
         }
@@ -76,7 +75,7 @@ public class BookUtils {
                         query.getString(query.getColumnIndex(strArr[0])),
                         query.getString(query.getColumnIndex(strArr[1])),
                         query.getLong(query.getColumnIndex(strArr[2])),
-                        query.getString(query.getColumnIndex(strArr[3]))
+                        query.getString(query.getColumnIndex(strArr[3])), 0
                 ));
             } while (query.moveToNext());
             query.close();

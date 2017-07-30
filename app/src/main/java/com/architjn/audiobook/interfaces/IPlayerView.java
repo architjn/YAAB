@@ -16,5 +16,7 @@ public interface IPlayerView {
 
     void onErrorLoadAudioBook();
 
-    void onInit();
+    void onInit(long duration);
+
+    void updateTimer(String time);
 }

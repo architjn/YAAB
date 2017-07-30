@@ -13,10 +13,10 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.architjn.audiobook.R;
-import com.architjn.audiobook.bean.AudioBook;
 import com.architjn.audiobook.presenter.PlayerPresenter;
 import com.architjn.audiobook.interfaces.IPlayerView;
 import com.architjn.audiobook.utils.Utils;
@@ -50,6 +50,8 @@ public class PlayerActivity extends AppCompatActivity implements IPlayerView {
     FloatingActionButton prev;
     @BindView(R.id.next)
     FloatingActionButton next;
+    @BindView(R.id.seekbar)
+    SeekBar seekBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -111,13 +113,26 @@ public class PlayerActivity extends AppCompatActivity implements IPlayerView {
     }
 
     @Override
-    public void onInit() {
+    public void onInit(long duration) {
         songName.setText(presenter.getAudioBook().getAlbumName());
         artist.setText(presenter.getAudioBook().getArtistName());
         presenter.setImageView(art);
+        seekBar.setMax((int) duration / 1000);
+        timeRight.setText(String.valueOf(duration / 1000));
         play.setOnClickListener(presenter.onPlayBtn);
         prev.setOnClickListener(presenter.onPrevBtn);
         next.setOnClickListener(presenter.onNextBtn);
+    }
+
+    @Override
+    public void updateTimer(final String time) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                timeLeft.setText(time);
+                seekBar.setProgress(Integer.parseInt(time));
+            }
+        });
     }
 
     @Override

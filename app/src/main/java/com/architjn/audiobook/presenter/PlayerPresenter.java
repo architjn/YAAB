@@ -19,6 +19,9 @@ import com.architjn.audiobook.utils.Utils;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Created by Archit on 26-07-2017.
  */
@@ -33,10 +36,58 @@ public class PlayerPresenter implements IPlayerPresenter {
     public View.OnClickListener onPlayBtn = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (interactor!=null)
-                interactor.playBook();
+            if (interactor != null) {
+                int timer = interactor.playBook();
+                if (timer != -1 && view != null)
+                    startTimerUpdates(timer);
+                else stopTimer();
+            }
         }
     };
+    private int time;
+
+    private void stopTimer() {
+        if (timer != null) {
+            timer.cancel();
+            timer.purge();
+        }
+    }
+
+    private Timer timer;
+
+    private void startTimerUpdates(int time) {
+        this.time = time;
+        if (timer == null) {
+            timer = new Timer();
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    if (view != null) {
+                        view.updateTimer(String.valueOf(PlayerPresenter.this.time / 1000));
+                        if (interactor.getStatus()== PlayerInteractor.Status.PLAYING)
+                        PlayerPresenter.this.time+=1000;
+                    }
+                /*runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (player != null && player.isPlaying()) {
+                            tv.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    tv.setText(player.getCurrentPosition());
+                                }
+                            });
+                        } else {
+                            timer.cancel();
+                            timer.purge();
+                        }
+                    }
+                });*/
+                }
+            }, 0, 1000);
+        }
+    }
+
     public View.OnClickListener onPrevBtn = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -57,7 +108,7 @@ public class PlayerPresenter implements IPlayerPresenter {
         this.interactor.setPresenterListener(this);
     }
 
-    Target target = new Target() {
+    private Target target = new Target() {
         @Override
         public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
             fetchColors(bitmap);
@@ -165,8 +216,8 @@ public class PlayerPresenter implements IPlayerPresenter {
         if (audioBook == null) {
             if (view != null)
                 view.onErrorLoadAudioBook();
-        }else if (view!=null)
-            view.onInit();
+        } else if (view != null)
+            view.onInit(audioBook.getChapters().get(0).getDuration());
     }
 
     public AudioBook getAudioBook() {

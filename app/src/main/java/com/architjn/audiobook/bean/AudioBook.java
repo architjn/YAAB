@@ -15,6 +15,7 @@ public class AudioBook implements Serializable {
     private String albumArt;
     private int status;
     private long duration;
+    private long currentDuration;
     private ArrayList<BookChapter> chapters;
 
     public AudioBook() {
@@ -22,7 +23,7 @@ public class AudioBook implements Serializable {
     }
 
     public AudioBook(String albumId, String albumKey, String albumName, String artistName,
-                     String albumArt, int status, long duration) {
+                     String albumArt, int status, long duration, long currentDuration) {
         this.albumId = albumId;
         this.albumKey = albumKey;
         this.albumName = albumName;
@@ -30,6 +31,7 @@ public class AudioBook implements Serializable {
         this.albumArt = albumArt;
         this.status = status;
         this.duration = duration;
+        this.currentDuration = currentDuration;
     }
 
     public String getAlbumKey() {
@@ -94,5 +96,13 @@ public class AudioBook implements Serializable {
 
     public void setDuration(long duration) {
         this.duration = duration;
+    }
+
+    public long getCurrentDuration() {
+        return currentDuration;
+    }
+
+    public void setCurrentDuration(long currentDuration) {
+        this.currentDuration = currentDuration;
     }
 }

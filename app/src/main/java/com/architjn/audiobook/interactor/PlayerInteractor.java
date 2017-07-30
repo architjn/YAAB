@@ -19,6 +19,7 @@ public class PlayerInteractor {
     private final DBHelper db;
     private IPlayerPresenter presenter;
     private IPlayerService service;
+    private Status status;
 
     public static PlayerInteractor getInstance(Context context) {
         if (instance == null)
@@ -46,8 +47,21 @@ public class PlayerInteractor {
         return audiobook;
     }
 
-    public void playBook() {
+    public int playBook() {
         if (service != null)
-            service.play();
+            return service.play();
+        else return -1;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public enum Status {
+        PLAYING, STOPPED, PAUSED
     }
 }

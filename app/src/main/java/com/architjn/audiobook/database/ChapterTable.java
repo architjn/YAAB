@@ -20,6 +20,7 @@ public class ChapterTable {
     private static final String TITLE = "chapter_title";
     private static final String ALBUM_ID = "chapter_album_id";
     private static final String DURATION = "chapter_duration";
+    private static final String CURRENT_DURATION = "chapter_curr_duration";
     private static final String PATH = "path";
     private static String TABLE_NAME = "chapter";
 
@@ -29,6 +30,7 @@ public class ChapterTable {
                 TITLE + " TEXT," +
                 ALBUM_ID + " TEXT," +
                 PATH + " TEXT," +
+                CURRENT_DURATION + " TEXT DEFAULT 0," +
                 DURATION + " TEXT)";
         db.execSQL(CREATE_TABLE);
     }
@@ -56,7 +58,8 @@ public class ChapterTable {
                         cursor.getString(cursor.getColumnIndex(ID)),
                         cursor.getString(cursor.getColumnIndex(TITLE)),
                         Long.parseLong(cursor.getString(cursor.getColumnIndex(DURATION))),
-                        cursor.getString(cursor.getColumnIndex(PATH))
+                        cursor.getString(cursor.getColumnIndex(PATH)),
+                        Long.parseLong(cursor.getString(cursor.getColumnIndex(CURRENT_DURATION)))
                 ));
             } while (cursor.moveToNext());
             cursor.close();

@@ -13,6 +13,9 @@ import com.architjn.audiobook.utils.Utils;
 
 import java.io.IOException;
 
+import static com.architjn.audiobook.interactor.PlayerInteractor.Status.PAUSED;
+import static com.architjn.audiobook.interactor.PlayerInteractor.Status.PLAYING;
+
 /**
  * Created by HP on 30-07-2017.
  */
@@ -20,6 +23,8 @@ import java.io.IOException;
 public class PlayerService extends Service implements IPlayerService {
 
     private MediaPlayer mediaPlayer;
+    private boolean gotContent;
+    private PlayerInteractor interactor;
 
     @Nullable
     @Override
@@ -29,16 +34,20 @@ public class PlayerService extends Service implements IPlayerService {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        PlayerInteractor.getInstance(this).setServiceListener(this);
+        interactor = PlayerInteractor.getInstance(this);
+        interactor.setServiceListener(this);
         mediaPlayer = new MediaPlayer();
+        gotContent = false;
         return START_STICKY;
     }
 
     @Override
     public void setSource(AudioBook audiobook) {
         try {
+            gotContent = false;
             mediaPlayer.reset();
             mediaPlayer.setDataSource(audiobook.getChapters().get(0).getData());
+            gotContent = true;
             mediaPlayer.prepare();
         } catch (IOException e) {
             e.printStackTrace();
@@ -46,9 +55,18 @@ public class PlayerService extends Service implements IPlayerService {
     }
 
     @Override
-    public void play() {
-        Utils.log("playing");
-        if (mediaPlayer != null)
-            mediaPlayer.start();
+    public int play() {
+        Utils.log("Playing");
+        if (mediaPlayer != null && gotContent) {
+            if (!mediaPlayer.isPlaying()) {
+                mediaPlayer.start();
+                interactor.setStatus(PLAYING);
+            } else if (mediaPlayer != null) {
+                mediaPlayer.pause();
+                interactor.setStatus(PAUSED);
+            }
+            return mediaPlayer.getCurrentPosition();
+        }
+        return -1;
     }
 }

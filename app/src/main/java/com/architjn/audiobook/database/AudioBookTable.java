@@ -24,6 +24,7 @@ public class AudioBookTable {
     private static final String ALBUM_STATUS = "album_status";
     private static final String ARTIST_NAME = "artist_name";
     private static final String COMPLETE_DURATION = "complete_duration";
+    private static final String CURRENT_DURATION = "current_duration";
 
     public static void onCreate(SQLiteDatabase db) {
         String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " (" +
@@ -32,6 +33,7 @@ public class AudioBookTable {
                 ALBUM_NAME + " TEXT," +
                 ALBUM_ART + " TEXT," +
                 ARTIST_NAME + " TEXT," +
+                CURRENT_DURATION + " TEXT DEFAULT 0," +
                 ALBUM_STATUS + " INTEGER DEFAULT 0," +
                 COMPLETE_DURATION + " TEXT)";
         db.execSQL(CREATE_TABLE);
@@ -61,7 +63,8 @@ public class AudioBookTable {
                         cursor.getString(cursor.getColumnIndex(ARTIST_NAME)),
                         cursor.getString(cursor.getColumnIndex(ALBUM_ART)),
                         cursor.getInt(cursor.getColumnIndex(ALBUM_STATUS)),
-                        Long.parseLong(cursor.getString(cursor.getColumnIndex(COMPLETE_DURATION))));
+                        Long.parseLong(cursor.getString(cursor.getColumnIndex(COMPLETE_DURATION))),
+                        Long.parseLong(cursor.getString(cursor.getColumnIndex(CURRENT_DURATION))));
                 ArrayList<BookChapter> chapters =
                         ChapterTable.getChapters(db, audiobook.getAlbumId());
                 audiobook.setChapters(chapters);
@@ -91,7 +94,8 @@ public class AudioBookTable {
                         cursor.getString(cursor.getColumnIndex(ARTIST_NAME)),
                         cursor.getString(cursor.getColumnIndex(ALBUM_ART)),
                         cursor.getInt(cursor.getColumnIndex(ALBUM_STATUS)),
-                        Long.parseLong(cursor.getString(cursor.getColumnIndex(COMPLETE_DURATION))));
+                        Long.parseLong(cursor.getString(cursor.getColumnIndex(COMPLETE_DURATION))),
+                        Long.parseLong(cursor.getString(cursor.getColumnIndex(CURRENT_DURATION))));
                 ArrayList<BookChapter> chapters =
                         ChapterTable.getChapters(db, audiobook.getAlbumId());
                 audiobook.setChapters(chapters);
@@ -115,7 +119,8 @@ public class AudioBookTable {
                         cursor.getString(cursor.getColumnIndex(ARTIST_NAME)),
                         cursor.getString(cursor.getColumnIndex(ALBUM_ART)),
                         cursor.getInt(cursor.getColumnIndex(ALBUM_STATUS)),
-                        Long.parseLong(cursor.getString(cursor.getColumnIndex(COMPLETE_DURATION))));
+                        Long.parseLong(cursor.getString(cursor.getColumnIndex(COMPLETE_DURATION))),
+                        Long.parseLong(cursor.getString(cursor.getColumnIndex(CURRENT_DURATION))));
                 ArrayList<BookChapter> chapters =
                         ChapterTable.getChapters(db, audiobook.getAlbumId());
                 audiobook.setChapters(chapters);
@@ -156,7 +161,8 @@ public class AudioBookTable {
                     cursor.getString(cursor.getColumnIndex(ARTIST_NAME)),
                     cursor.getString(cursor.getColumnIndex(ALBUM_ART)),
                     cursor.getInt(cursor.getColumnIndex(ALBUM_STATUS)),
-                    Long.parseLong(cursor.getString(cursor.getColumnIndex(COMPLETE_DURATION))));
+                    Long.parseLong(cursor.getString(cursor.getColumnIndex(COMPLETE_DURATION))),
+                    Long.parseLong(cursor.getString(cursor.getColumnIndex(CURRENT_DURATION))));
             ArrayList<BookChapter> chapters =
                     ChapterTable.getChapters(db, audiobook.getAlbumId());
             audiobook.setChapters(chapters);
