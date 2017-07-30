@@ -20,6 +20,7 @@ public class ChapterTable {
     private static final String TITLE = "chapter_title";
     private static final String ALBUM_ID = "chapter_album_id";
     private static final String DURATION = "chapter_duration";
+    private static final String PATH = "path";
     private static String TABLE_NAME = "chapter";
 
     public static void onCreate(SQLiteDatabase db) {
@@ -27,6 +28,7 @@ public class ChapterTable {
                 ID + " TEXT PRIMARY KEY," +
                 TITLE + " TEXT," +
                 ALBUM_ID + " TEXT," +
+                PATH + " TEXT," +
                 DURATION + " TEXT)";
         db.execSQL(CREATE_TABLE);
     }
@@ -38,6 +40,7 @@ public class ChapterTable {
             values.put(ALBUM_ID, albumId);
             values.put(ID, chapter.getId());
             values.put(TITLE, chapter.getTitle());
+            values.put(PATH, chapter.getData());
             values.put(DURATION, chapter.getDuration());
             db.insert(TABLE_NAME, null, values);
         }
@@ -52,7 +55,8 @@ public class ChapterTable {
                 chapters.add(new BookChapter(
                         cursor.getString(cursor.getColumnIndex(ID)),
                         cursor.getString(cursor.getColumnIndex(TITLE)),
-                        Long.parseLong(cursor.getString(cursor.getColumnIndex(DURATION)))
+                        Long.parseLong(cursor.getString(cursor.getColumnIndex(DURATION))),
+                        cursor.getString(cursor.getColumnIndex(PATH))
                 ));
             } while (cursor.moveToNext());
             cursor.close();

@@ -75,7 +75,8 @@ public class BookUtils {
                 chapters.add(new BookChapter(
                         query.getString(query.getColumnIndex(strArr[0])),
                         query.getString(query.getColumnIndex(strArr[1])),
-                        query.getLong(query.getColumnIndex(strArr[2]))
+                        query.getLong(query.getColumnIndex(strArr[2])),
+                        query.getString(query.getColumnIndex(strArr[3]))
                 ));
             } while (query.moveToNext());
             query.close();

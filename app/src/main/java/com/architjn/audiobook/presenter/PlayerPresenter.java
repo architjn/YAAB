@@ -28,11 +28,13 @@ public class PlayerPresenter implements IPlayerPresenter {
     private IPlayerView view;
     private Context context;
     private ImageView art;
+    private AudioBook audioBook;
 
     public View.OnClickListener onPlayBtn = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            if (interactor!=null)
+                interactor.playBook();
         }
     };
     public View.OnClickListener onPrevBtn = new View.OnClickListener() {
@@ -47,7 +49,6 @@ public class PlayerPresenter implements IPlayerPresenter {
 
         }
     };
-    private AudioBook audioBook;
 
     public PlayerPresenter(Context context) {
         this.context = context;

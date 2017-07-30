@@ -10,15 +10,17 @@ public class BookChapter implements Serializable{
     private String id;
     private String title;
     private long duration;
+    private String data;
 
     public BookChapter() {
         //for serializable
     }
 
-    public BookChapter(String id, String title, long duration) {
+    public BookChapter(String id, String title, long duration, String data) {
         this.id = id;
         this.title = title;
         this.duration = duration;
+        this.data = data;
     }
 
     public String getId() {
@@ -43,5 +45,13 @@ public class BookChapter implements Serializable{
 
     public void setDuration(long duration) {
         this.duration = duration;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
     }
 }

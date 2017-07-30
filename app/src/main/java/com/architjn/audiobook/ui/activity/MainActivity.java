@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import com.architjn.audiobook.R;
 import com.architjn.audiobook.presenter.MainPresenter;
 import com.architjn.audiobook.interfaces.IMainView;
+import com.architjn.audiobook.service.PlayerService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        startService(new Intent(this, PlayerService.class));
         setContentView(R.layout.activity_main);
         init();
     }

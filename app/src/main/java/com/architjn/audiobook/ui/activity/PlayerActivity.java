@@ -70,7 +70,6 @@ public class PlayerActivity extends AppCompatActivity implements IPlayerView {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(null);
         presenter = new PlayerPresenter(this);
-        Utils.log(getIntent().getStringExtra("id")+" <<");
         presenter.loadAudioBook(getIntent().getStringExtra("id"));
     }
 

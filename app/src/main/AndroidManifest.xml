@@ -27,6 +27,8 @@
             android:name=".ui.activity.PlayerActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Player" />
+
+        <service android:name=".service.PlayerService" />
     </application>
 
 </manifest>

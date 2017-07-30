@@ -40,6 +40,14 @@ public class PlayerInteractor {
     }
 
     public AudioBook loadBook(String albumId) {
-        return db.getAudioBookViaId(albumId);
+        AudioBook audiobook = db.getAudioBookViaId(albumId);
+        if (service != null && audiobook != null)
+            service.setSource(audiobook);
+        return audiobook;
+    }
+
+    public void playBook() {
+        if (service != null)
+            service.play();
     }
 }
