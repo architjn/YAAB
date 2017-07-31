@@ -5,4 +5,5 @@ package com.architjn.audiobook.interfaces;
  */
 
 public interface IPlayerPresenter {
+    void playSong();
 }

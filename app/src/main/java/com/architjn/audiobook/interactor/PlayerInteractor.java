@@ -3,9 +3,11 @@ package com.architjn.audiobook.interactor;
 import android.content.Context;
 
 import com.architjn.audiobook.bean.AudioBook;
+import com.architjn.audiobook.bean.BookChapter;
 import com.architjn.audiobook.database.DBHelper;
 import com.architjn.audiobook.interfaces.IPlayerPresenter;
 import com.architjn.audiobook.interfaces.IPlayerService;
+import com.architjn.audiobook.utils.Utils;
 
 /**
  * Created by HP on 30-07-2017.
@@ -20,6 +22,8 @@ public class PlayerInteractor {
     private IPlayerPresenter presenter;
     private IPlayerService service;
     private Status status;
+    private AudioBook audiobook;
+    private int chapterNo = 0;
 
     public static PlayerInteractor getInstance(Context context) {
         if (instance == null)
@@ -41,9 +45,9 @@ public class PlayerInteractor {
     }
 
     public AudioBook loadBook(String albumId) {
-        AudioBook audiobook = db.getAudioBookViaId(albumId);
+        audiobook = db.getAudioBookViaId(albumId);
         if (service != null && audiobook != null)
-            service.setSource(audiobook);
+            service.setSource(audiobook.getChapters().get(chapterNo));
         return audiobook;
     }
 
@@ -59,6 +63,21 @@ public class PlayerInteractor {
 
     public Status getStatus() {
         return status;
+    }
+
+    public BookChapter getNextChapter() {
+        if (audiobook != null && audiobook.getChapters().size() > chapterNo)
+            return audiobook.getChapters().get(chapterNo);
+        else return null;
+    }
+
+    public void askToPlay() {
+        presenter.playSong();
+    }
+
+    public void updateSeek(int progress) {
+        if (service!=null)
+            service.onSeekChange(progress*1000);
     }
 
     public enum Status {

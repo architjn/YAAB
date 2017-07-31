@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.support.v7.graphics.Palette;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 
 import com.architjn.audiobook.R;
 import com.architjn.audiobook.bean.AudioBook;
@@ -36,14 +37,39 @@ public class PlayerPresenter implements IPlayerPresenter {
     public View.OnClickListener onPlayBtn = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (interactor != null) {
-                int timer = interactor.playBook();
-                if (timer != -1 && view != null)
-                    startTimerUpdates(timer);
-                else stopTimer();
-            }
+            playSong();
         }
     };
+    public SeekBar.OnSeekBarChangeListener onSeekChange = new SeekBar.OnSeekBarChangeListener() {
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            if (interactor != null) {
+                interactor.updateSeek(progress);
+                PlayerPresenter.this.time = progress * 1000;
+            }
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+
+        }
+    };
+
+    @Override
+    public void playSong() {
+        if (interactor != null) {
+            int timer = interactor.playBook();
+            if (timer != -1 && view != null)
+                startTimerUpdates(timer);
+            else stopTimer();
+        }
+    }
+
     private int time;
 
     private void stopTimer() {
@@ -63,26 +89,10 @@ public class PlayerPresenter implements IPlayerPresenter {
                 @Override
                 public void run() {
                     if (view != null) {
-                        view.updateTimer(String.valueOf(PlayerPresenter.this.time / 1000));
-                        if (interactor.getStatus()== PlayerInteractor.Status.PLAYING)
-                        PlayerPresenter.this.time+=1000;
+                        view.updateTimer(String.valueOf(PlayerPresenter.this.time));
+                        if (interactor.getStatus() == PlayerInteractor.Status.PLAYING)
+                            PlayerPresenter.this.time += 1000;
                     }
-                /*runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (player != null && player.isPlaying()) {
-                            tv.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    tv.setText(player.getCurrentPosition());
-                                }
-                            });
-                        } else {
-                            timer.cancel();
-                            timer.purge();
-                        }
-                    }
-                });*/
                 }
             }, 0, 1000);
         }

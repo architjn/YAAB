@@ -6,10 +6,9 @@ import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
-import com.architjn.audiobook.bean.AudioBook;
+import com.architjn.audiobook.bean.BookChapter;
 import com.architjn.audiobook.interactor.PlayerInteractor;
 import com.architjn.audiobook.interfaces.IPlayerService;
-import com.architjn.audiobook.utils.Utils;
 
 import java.io.IOException;
 
@@ -42,13 +41,33 @@ public class PlayerService extends Service implements IPlayerService {
     }
 
     @Override
-    public void setSource(AudioBook audiobook) {
+    public void setSource(BookChapter chapter) {
         try {
             gotContent = false;
             mediaPlayer.reset();
-            mediaPlayer.setDataSource(audiobook.getChapters().get(0).getData());
+            mediaPlayer.setDataSource(chapter.getData());
             gotContent = true;
             mediaPlayer.prepare();
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    if (interactor != null) {
+                        changeAudioFile(interactor.getNextChapter());
+                    }
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void changeAudioFile(BookChapter nextChapter) {
+        try {
+            if (mediaPlayer != null && nextChapter != null) {
+                mediaPlayer.reset();
+                mediaPlayer.setDataSource(nextChapter.getData());
+                interactor.askToPlay();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -56,7 +75,6 @@ public class PlayerService extends Service implements IPlayerService {
 
     @Override
     public int play() {
-        Utils.log("Playing");
         if (mediaPlayer != null && gotContent) {
             if (!mediaPlayer.isPlaying()) {
                 mediaPlayer.start();
@@ -68,5 +86,11 @@ public class PlayerService extends Service implements IPlayerService {
             return mediaPlayer.getCurrentPosition();
         }
         return -1;
+    }
+
+    @Override
+    public void onSeekChange(int progress) {
+        if (mediaPlayer != null && gotContent)
+            mediaPlayer.seekTo(progress);
     }
 }

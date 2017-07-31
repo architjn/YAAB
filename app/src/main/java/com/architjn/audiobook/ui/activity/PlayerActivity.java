@@ -118,10 +118,12 @@ public class PlayerActivity extends AppCompatActivity implements IPlayerView {
         artist.setText(presenter.getAudioBook().getArtistName());
         presenter.setImageView(art);
         seekBar.setMax((int) duration / 1000);
-        timeRight.setText(String.valueOf(duration / 1000));
+        timeRight.setText(Utils.formatTime(duration));
+        timeLeft.setText(Utils.formatTime(0));
         play.setOnClickListener(presenter.onPlayBtn);
         prev.setOnClickListener(presenter.onPrevBtn);
         next.setOnClickListener(presenter.onNextBtn);
+        seekBar.setOnSeekBarChangeListener(presenter.onSeekChange);
     }
 
     @Override
@@ -129,8 +131,8 @@ public class PlayerActivity extends AppCompatActivity implements IPlayerView {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                timeLeft.setText(time);
-                seekBar.setProgress(Integer.parseInt(time));
+                timeLeft.setText(Utils.formatTime(Long.parseLong(time)));
+                seekBar.setProgress(Integer.parseInt(time) / 1000);
             }
         });
     }

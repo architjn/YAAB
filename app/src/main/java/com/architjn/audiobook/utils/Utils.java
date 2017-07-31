@@ -8,6 +8,9 @@ import android.util.Log;
 
 import com.architjn.audiobook.BuildConfig;
 
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
+
 import static java.lang.Math.round;
 
 /**
@@ -46,5 +49,14 @@ public class Utils {
     public static int dpToPx(int dp) {
         DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
         return round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+    }
+
+    public static String formatTime(long millis) {
+        return String.format(Locale.ENGLISH, "%02d:%02d:%02d",
+                TimeUnit.MILLISECONDS.toHours(millis),
+                TimeUnit.MILLISECONDS.toMinutes(millis) -
+                        TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)),
+                TimeUnit.MILLISECONDS.toSeconds(millis) -
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
     }
 }
